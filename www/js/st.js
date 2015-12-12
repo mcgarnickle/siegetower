@@ -1,5 +1,15 @@
-//create one of Tone's built-in synthesizers and connect it to the master output
-var synth = new Tone.SimpleSynth().toMaster();
+function dumbloop() {
+  for (var i = 1; i < 50; i++) {
+    var note = i-100;
+    var time = i+1;
+    var velocity = i*10;
+    var dist = new Tone.Distortion(i*1000).toMaster();
+    var fm = new Tone.SimpleFM().connect(dist); 
 
-//play a middle c for the duration of an 8th note
-synth.triggerAttackRelease("C4", "8n");
+    if (i % 2 == 0) {
+      fm.triggerAttack(note, time, velocity);
+    } else {
+      fm.triggerAttackRelease(note, time, velocity);
+    }
+  }
+}
